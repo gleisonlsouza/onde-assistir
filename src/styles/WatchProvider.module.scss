@@ -1,0 +1,23 @@
+.listProviders{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1em;
+}
+
+.providers{
+    display: flex;
+    flex-direction: column;    
+    background-color: rgba($color: #000, $alpha: .5); 
+    margin-top: .5em;
+    min-height: 20em;
+    padding: 1em;
+    border-radius: 15px;    
+    h3{
+        text-align: center;
+        text-transform: uppercase;
+        border-bottom: .1em solid #FFC312;        
+    }
+    h4{
+        padding-top: 2em;
+    }
+}

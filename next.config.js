@@ -2,6 +2,11 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-}
 
-module.exports = nextConfig
+  images: {
+    domains: ["image.tmdb.org"],
+  },
+  experimental: { images: { allowFutureImage: true } },
+};
+
+module.exports = nextConfig;
