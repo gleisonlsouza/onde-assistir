@@ -548,7 +548,7 @@ export default function WatchProvider({providers}:iProviders) {
                               />
                           )) }  
                       </div>
-                      <h4>Aluguar</h4>
+                      <h4>Alugar</h4>
                       <div className={styles.listProviders}>
                           {!providers[region].rent ? <p>Não disponível</p> : providers[region].rent.map((provider:ProviderProps,index:number) =>(
                               <Image 
