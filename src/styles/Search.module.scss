@@ -64,7 +64,7 @@
 
     .listCard{
         display: grid;
-        grid-template-columns: repeat(5,1fr);   
+        grid-template-columns: repeat(8,1fr);   
         gap: 1em;
         
     }
@@ -103,48 +103,6 @@
     }
     
     
-}
-
-.search{
-    max-width: 100%;
-    padding: 1em 1em 0 1em;    
-    form{
-        label{
-            display: flex;
-            
-            input{
-                width: 100%;
-                height: 3em;
-                border: none;
-                outline: none;
-                padding: 1em;
-                color:#fff;  
-                font-size: 1.2em;              
-                border-top:  4px solid;
-                border-bottom:  4px solid;
-                border-left:  4px solid;
-                border-color: rgba($color: #a1a4bd, $alpha: .2); 
-                border-radius: 10px 0 0 10px;
-                background-color: rgba($color: #000000, $alpha: .2);                
-                
-            }
-            button{
-                height: 3em;
-                border: none;
-                outline: none;
-                width: 50px;
-                color:#fff;
-                font-size: 1.2em; 
-                border-radius: 0 10px 10px 0;
-                border-top:  4px solid;
-                border-bottom:  4px solid;
-                border-right:  4px solid;
-                border-color: rgba($color: #a1a4bd, $alpha: .2); 
-                cursor: pointer;
-                background-color: rgba($color: #000000, $alpha: .2);
-            }
-        }
-    }
 }
 
 // Mobile
@@ -186,6 +144,18 @@
         }
     }
 
+}
+
+@media (max-width: 1200px){
+    .listContent{
+    
+        .listCard{
+            display: grid;
+            grid-template-columns: repeat(5,1fr);   
+            gap: 1em;
+            
+        }
+    }
 }
 
 @media (max-width: 1000px){
@@ -257,19 +227,5 @@
             
         }
     }
-
-    .search{
-        form{
-            label{
-                
-                input{
-                    font-size: 1em; 
-                }
-                button{
-                    font-size: 1em;
-                }
-            }
-            
-        }
-    }
 }
+

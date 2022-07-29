@@ -1,16 +1,42 @@
 .navbar{
     display: flex;
     align-items: center;
-    justify-content: space-between;
     min-height: 5em;
     padding: 0 4em 0 4em;
     color: #fff;
 
+    .logoAndButton{
+        display: flex;
+        width: auto;
+        padding-top: 1em;
+        
+        .logo{
+            display: flex;
+            width: 200px;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .buttonColapse{
+            color: #fff;
+            font-size: 2em;
+            visibility: hidden;
+        }
+    }
+
+    .search{
+        width: 100%;
+    }
+
+    
+
     .links{
         display: flex;
         width: 90%;
-        justify-content: space-between;
         .listLinks{
+            display: flex;
+            align-items: center;
             list-style: none;
             display: flex;
             padding-top: 0.5em;
@@ -41,38 +67,7 @@
 
 
 
-.buttonUpdateColapse{
-    visibility: hidden;
-    button{
-        background-color: #3B3B98;
-        color:#fff;
-        padding: .5em;
-        border-radius: 10px;
-        cursor: pointer;
-
-        &:hover{
-            color:#FFC312
-        }
-        
-    }
-}
-
-
-
-
-.buttonColapse{
-    color: #fff;
-    font-size: 2em;
-    visibility: hidden;
-}
-
-@media (max-width:  1400px){
-    .links{
-        font-size: 1.3em;
-    }
-}
-
-@media (max-width:  1250px){
+@media (max-width:  700px){
     .links{
         font-size: 1em;
     }
@@ -81,8 +76,34 @@
 @media (max-width:  1000px){
     .navbar{
         display: flex;
-        flex-direction: column-reverse;
-        padding: 0;    
+        flex-direction: column;
+        padding: 0; 
+        
+        .logoAndButton{
+            display: flex;
+            width: 100%;
+            
+            .logo{
+                display: flex;
+                width: 100%;
+                align-items: center;
+                padding-left: 4em;
+                justify-content: center;
+            }
+            
+            .buttonColapse{     
+                justify-content: end;
+                align-self: flex-end;            
+                color: #fff;
+                font-size: 2em;
+                padding: .5em;
+                visibility: visible; 
+                
+                svg{
+                    cursor: pointer;
+                }
+            }
+        }
         
         .links{
             display: flex;   
@@ -91,7 +112,7 @@
             justify-content: flex-start;   
             visibility: hidden;
             height: 0;        
-            background-color: rgba($color: #3B3B98, $alpha: .7);
+            background-color: rgba($color: #3B3B98, $alpha: .3);
             width: 100%;
             transition:  300ms;
             .listLinks{            
@@ -115,7 +136,7 @@
             }
             
             &.active{
-                height: 70vh;
+                height: 40vh;
                 visibility: visible;
                 .listLinks{ 
                     visibility: visible;
@@ -124,20 +145,7 @@
     
             
         }
-    }
-
-    .buttonColapse{     
-        justify-content: end;
-        align-self: flex-end;            
-        color: #fff;
-        font-size: 2em;
-        padding: .5em;
-        visibility: visible; 
-        
-        svg{
-            cursor: pointer;
-        }
-    }     
+    }      
     
     
 }

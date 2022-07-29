@@ -2,6 +2,8 @@ import type { NextPage } from 'next'
 import styles from '../styles/Home.module.scss'
 import watchImage from './../../public/assets/images/wherewatch.jpg'
 
+
+
 import { GetStaticProps } from 'next'
 
 
@@ -64,6 +66,7 @@ const Home: NextPage<HomeProps> = ({filmsData,seriesData}) => {
 
   return (
     <div className={styles.container}>
+      
       <Head>
         <title>Onde Assistir</title>
         <meta name="description" content="Saiba onde assistir aquele filme ou série que você tanto procura" />

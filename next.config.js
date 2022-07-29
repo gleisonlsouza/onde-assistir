@@ -4,7 +4,7 @@ const nextConfig = {
   swcMinify: true,
 
   images: {
-    domains: ["image.tmdb.org"],
+    domains: ["image.tmdb.org", "cdn-icons-png.flaticon.com"],
   },
   experimental: { images: { allowFutureImage: true } },
 };
