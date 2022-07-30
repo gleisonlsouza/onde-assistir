@@ -10,6 +10,7 @@ import { api } from '../../utils/config'
 import { useRouter } from 'next/router'
 import WatchProvider from '../../components/WatchProvider/WatchProvider'
 import Card from '../../components/Card/Card'
+import Loader from './../../components/Loader/Loader'
 
 
 type FilmProps = {
@@ -98,7 +99,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const filmProvider = resProvider.data.results;
   const releaseDateBR = filmData.release_dates.results.filter(({iso_3166_1}:any) => iso_3166_1 === 'BR');  
   const releaseDate = await releaseDateBR.length > 0 ? releaseDateBR[0].release_dates[0] :  null;
-  const similarFilms = await filmData.similar.results.slice(0,4)
+  const similarFilms = await filmData.similar.results;
   
  
 
@@ -116,7 +117,7 @@ export default function Film({filmData,filmProvider,releaseDate,similarFilms}:iF
 
     if(router.isFallback){
         return(
-            <div>Carregando...</div>
+            <Loader />
         )
     }
 
@@ -170,21 +171,12 @@ export default function Film({filmData,filmProvider,releaseDate,similarFilms}:iF
               </div>
             </div>
             <p>{filmData.overview}</p>    
-            <div className={styles.similar}>
-              <div className={styles.similarTitle}>
-                <h2>Veja também</h2>
+            <div className={styles.providers}>
+              <div className={styles.providersTitle}>
+                <h2>Onde Assistir?</h2>                
               </div>
-              <div className={styles.similarContent}>
-                {similarFilms && similarFilms.map((film,index) => (
-                  <Card 
-                    key={index} 
-                    src={`https://image.tmdb.org/t/p/original/${film.poster_path}`} 
-                    title={film.title} 
-                    alt={film.title} 
-                    link={`/film/${film.id}`}
-                    similar={true}
-                    />
-                ) )}
+              <div className={styles.providersContent}>
+                <WatchProvider providers={filmProvider} />                
               </div>
             </div>          
           </div> 
@@ -199,12 +191,22 @@ export default function Film({filmData,filmProvider,releaseDate,similarFilms}:iF
                 
         </section>
 
-        <section className={styles.providersContent}> 
-          <div className={styles.providersTitle}>
-            <h2>Onde Assitir?</h2>
+        <section className={styles.similarContent}> 
+          <div className={styles.similarTitle}>
+            <h2>Veja também</h2>
+            <p>Títulos parecidos com o que você está vendo</p>
           </div>          
-          <div className={styles.providers}>
-            <WatchProvider providers={filmProvider} /> 
+          <div className={styles.similar}>
+            {similarFilms && similarFilms.map((film,index) => (
+              <Card 
+                key={index} 
+                src={`https://image.tmdb.org/t/p/original/${film.poster_path}`} 
+                title={film.title} 
+                alt={film.title} 
+                link={`/film/${film.id}`}
+                similar={true}
+              />
+              ) )}
           </div> 
         </section>
       </main>

@@ -1,12 +1,12 @@
 .divProviders{
-    background-color: rgba($color: #000, $alpha: .5); 
-    padding: 1em;
-    overflow: hidden;
-    border-radius: 0 0 15px 15px ;     
-    transition: max-height 0.5s ease-in-out;
-    
+    //background-color: rgba($color: #000, $alpha: .5); 
+    padding: 0 1em;
+    overflow: hidden;     
     h4{
-        padding-top: 2em;
+        margin: 1.5em 0 .5em 0 ;
+        text-transform: uppercase;
+        border-bottom: 1px solid #FFC312;
+        width: fit-content;
     }
 }
 
@@ -58,4 +58,54 @@
         text-transform: uppercase;
         border-bottom: .1em solid #FFC312;        
     }    
+}
+
+.container{        
+    flex-grow: 1;
+}
+
+.dropDown{
+    display: flex; 
+    justify-content: space-between;
+    padding: .5em 1em;      
+    background-color: rgba($color: #000, $alpha: .5); 
+    cursor: pointer;    
+    span{
+        display: flex;
+        gap: 1em;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+.options{
+    position: relative;   
+    max-height: 105em;
+    background-color: rgba($color: #000, $alpha: .9); 
+    ul{
+        list-style: none;
+        position: absolute;
+        width: 100%;
+        height: 20em;
+        overflow-y: scroll;
+        background-color: rgba($color: #000, $alpha: .9); 
+        z-index: 5;
+        li{ 
+            display: flex;
+            gap: 1em;
+            align-items: center;
+            cursor: pointer;
+            padding: 1em;
+
+            p{
+                padding-left: 1em;
+            }
+
+            &:hover{
+                background-color: rgba($color: #000, $alpha: .8); 
+                color: #FFC312;
+            }
+        }
+    }
+    
 }

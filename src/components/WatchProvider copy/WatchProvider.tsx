@@ -1,9 +1,7 @@
-import React, { useMemo, useState } from 'react'
+import React, { useState } from 'react'
 
 import styles from './../../styles/WatchProvider.module.scss'
 import Image from 'next/future/image'
-import { BiDownArrow } from "react-icons/bi";
-
 
 type ProvidersProps = {    
     [key:string]:any,   
@@ -39,23 +37,7 @@ interface iProviders{
 
 export default function WatchProvider({providers}:iProviders) {
 
-    const [activeRegion, setActiveRegion] = useState('BR');
-    const [hide, setHide] = useState(true)
-    const [selectedProvider, setSelectedProvider] = useState<ProvidersProps>([])
-
-
-    useMemo(() => {
-      const emptyProvider = [{
-        flatrate:[{}], buy:[{}], rent:[{}]
-      }]
-
-      if(providers[activeRegion]) {
-        setSelectedProvider(providers[activeRegion])
-      }else{
-        setSelectedProvider(emptyProvider)
-      }
-      
-    },[activeRegion,providers])
+    const [activeLocation, setActiveLocation] = useState('')
 
      // List Location
      const locations = [
@@ -536,93 +518,63 @@ export default function WatchProvider({providers}:iProviders) {
     
     }
 
-    const handleClickSelect = () => {
-      setHide(!hide)
-    }
-
-    const handleClickOption = (region:string) => {
-      setActiveRegion(region)
-      setHide(!hide)
-    }
-
   return (
-   <div style={{display:'flex',flexDirection:'column'}}>
-    <div className={styles.container}>
-        <div className={styles.dropDown} onClick={handleClickSelect}>       
-                <span>
-                    <Image
-                        src={activeRegion && returnRegion(activeRegion).flag}
-                        height={30}
-                        width={30}
-                        alt={`Bandeira ${activeRegion && activeRegion}`}
-                    />
-                    {activeRegion && returnRegion(activeRegion).location}
-                </span>
-                <span><BiDownArrow/></span>
-        </div>
-        <div className={styles.options} hidden={hide}>
-                <ul>
-                    <li onClick={() => handleClickOption('BR')}>
-                        <Image
-                            src="https://cdn-icons-png.flaticon.com/512/3909/3909370.png"
-                            height={30}
-                            width={30}
-                            alt={`Bandeira BR`}
-                        />
-                        Brasil
-                    </li>
-                    {Object.keys(providers).map((region:string,index:number) => (                      
-                        <li key={index} value={region} onClick={() => handleClickOption(region)}>
-                          <Image
-                            src={region && returnRegion(region).flag}
-                            height={30}
-                            width={30}
-                            alt={`Bandeira BR`}
-                        />
-                        {region && returnRegion(region).location}
-                        </li> 
-                    ))}
-                </ul>
-        </div>        
-    </div>
-    <div className={styles.divProviders}>
-      <h4>Stream</h4>                    
-      <div className={styles.listProviders}>
-          {!selectedProvider.flatrate ? <p>Não disponível</p> : selectedProvider.flatrate.map((provider:ProviderProps,index:number) =>(
-              <Image 
-                  key={index}
-                  src={`https://image.tmdb.org/t/p/original/${provider.logo_path}`}
-                  height={50}
-                  width={50}
-                  alt={provider.provider_name}
-              />
-          )) }  
-      </div>
-      <h4>Alugar</h4>
-      <div className={styles.listProviders}>
-          {!selectedProvider.rent ? <p>Não disponível</p> : selectedProvider.rent.map((provider:ProviderProps,index:number) =>(
-              <Image 
-                  key={index}
-                  src={`https://image.tmdb.org/t/p/original/${provider.logo_path}`}
-                  height={50}
-                  width={50}
-                  alt={provider.provider_name}
-              />
-          )) }  
-      </div>
-      <h4>Comprar</h4>
-      <div className={styles.listProviders}>
-          {!selectedProvider.buy ? <p>Não disponível</p> : selectedProvider.buy.map((provider:ProviderProps,index:number) =>(
-              <Image 
-                  key={index}
-                  src={`https://image.tmdb.org/t/p/original/${provider.logo_path}`}
-                  height={50}
-                  width={50}
-                  alt={provider.provider_name}
-              />
-          )) }  
-      </div> 
-    </div> 
-   </div>
+   <>
+    {Object.keys(providers).map((region:string,index:number) => (
+                <div key={index}>
+                <div   className={styles.providers}>
+                    <h4>{region && returnRegion(region).location}</h4>
+                    <div className={styles.flag}>
+                      <Image 
+                        key={index}
+                        src={region && returnRegion(region).flag}
+                        height={250}
+                        width={250}
+                        alt={`Bandeira ${region}`}
+                        onClick={() => activeLocation !== region ? setActiveLocation(region) : setActiveLocation('')}
+                      />
+                    </div>        
+                </div>
+                <div className={styles.divProviders} style={region ===  activeLocation ? {maxHeight:'50em'} : {maxHeight:'0'}}>
+                      <h4>Stream</h4>                    
+                      <div className={styles.listProviders}>
+                          {!providers[region].flatrate ? <p>Não disponível</p> : providers[region].flatrate.map((provider:ProviderProps,index:number) =>(
+                              <Image 
+                                  key={index}
+                                  src={`https://image.tmdb.org/t/p/original/${provider.logo_path}`}
+                                  height={50}
+                                  width={50}
+                                  alt={provider.provider_name}
+                              />
+                          )) }  
+                      </div>
+                      <h4>Alugar</h4>
+                      <div className={styles.listProviders}>
+                          {!providers[region].rent ? <p>Não disponível</p> : providers[region].rent.map((provider:ProviderProps,index:number) =>(
+                              <Image 
+                                  key={index}
+                                  src={`https://image.tmdb.org/t/p/original/${provider.logo_path}`}
+                                  height={50}
+                                  width={50}
+                                  alt={provider.provider_name}
+                              />
+                          )) }  
+                      </div>
+                      <h4>Comprar</h4>
+                      <div className={styles.listProviders}>
+                          {!providers[region].buy ? <p>Não disponível</p> : providers[region].buy.map((provider:ProviderProps,index:number) =>(
+                              <Image 
+                                  key={index}
+                                  src={`https://image.tmdb.org/t/p/original/${provider.logo_path}`}
+                                  height={50}
+                                  width={50}
+                                  alt={provider.provider_name}
+                              />
+                          )) }  
+                      </div> 
+                    </div>  
+                </div>
+              ))}
+   </>
   )
 }

@@ -10,6 +10,7 @@ import { api } from '../../utils/config'
 import { useRouter } from 'next/router'
 import WatchProvider from '../../components/WatchProvider/WatchProvider'
 import Card from '../../components/Card/Card'
+import Loader from '../../components/Loader/Loader'
 
 
 type SerieProps = {
@@ -85,7 +86,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const serieProvider = resProvider.data.results;
   const ratingData = serieData.content_ratings.results.filter(({iso_3166_1}:any) => iso_3166_1 === 'BR');  
   const rating = await ratingData.length > 0 ? ratingData[0] :  null;
-  const similarSeries = await serieData.similar.results.slice(0,4)
+  const similarSeries = await serieData.similar.results;
   //const rating = ['']
   
  
@@ -104,7 +105,7 @@ export default function Serie({serieData,serieProvider,rating,similarSeries}:iSe
 
     if(router.isFallback){
         return(
-            <div>Carregando...</div>
+          <Loader />
         )
     }
     
@@ -145,8 +146,16 @@ export default function Serie({serieData,serieProvider,rating,similarSeries}:iSe
                 </span>
               </div>
             </div>
-            <p>{serieData.overview}</p>    
-            <div className={styles.similar}>
+            <p>{serieData.overview}</p>   
+            <div className={styles.providers}>
+              <div className={styles.providersTitle}>
+                <h2>Onde Assistir?</h2>                
+              </div>
+              <div className={styles.providersContent}>
+                <WatchProvider providers={serieProvider} />                
+              </div>
+            </div>   
+            {/* <div className={styles.similar}>
               <div className={styles.similarTitle}>
                 <h2>Veja também</h2>
               </div>
@@ -162,7 +171,7 @@ export default function Serie({serieData,serieProvider,rating,similarSeries}:iSe
                     />
                 ) )}
               </div>
-            </div>          
+            </div>  */}         
           </div> 
           <div className={styles.mainImage}>
             <Image 
@@ -175,12 +184,22 @@ export default function Serie({serieData,serieProvider,rating,similarSeries}:iSe
                 
         </section>
 
-        <section className={styles.providersContent}> 
-          <div className={styles.providersTitle}>
-            <h2>Onde Assitir?</h2>
+        <section className={styles.similarContent}> 
+          <div className={styles.similarTitle}>
+            <h2>Veja também</h2>
+            <p>Títulos parecidos com o que você está vendo</p>
           </div>          
-          <div className={styles.providers}>
-            <WatchProvider providers={serieProvider} /> 
+          <div className={styles.similar}>
+            {similarSeries && similarSeries.map((serie,index) => (
+              <Card 
+                key={index} 
+                src={`https://image.tmdb.org/t/p/original/${serie.poster_path}`} 
+                title={serie.name} 
+                alt={serie.name} 
+                link={`/serie/${serie.id}`}
+                similar={true}
+                />
+                ) )}
           </div> 
         </section>
       </main>
