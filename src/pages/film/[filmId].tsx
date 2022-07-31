@@ -4,7 +4,7 @@ import Image from 'next/future/image'
 
 import styles from './../../styles/Film.module.scss'
 
-import { GetStaticProps,GetStaticPaths, GetStaticPropsContext, GetStaticPathsContext } from 'next'
+import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import { api } from '../../utils/config'
 import { useRouter } from 'next/router'
@@ -62,7 +62,7 @@ interface iFilmProps{
   similarFilms: FilmProps[],
 }
 
-export const getStaticPaths:GetStaticPaths = async(context) => {
+/* export const getStaticPaths:GetStaticPaths = async(context) => {
   // Fetch data from external API
   const resFilms = await  api.get("/movie/now_playing");
   
@@ -80,10 +80,10 @@ export const getStaticPaths:GetStaticPaths = async(context) => {
       fallback: true,
   }
   
-}
+} */
 
 
-export const getStaticProps: GetStaticProps = async (context) => {    
+export const getServerSideProps: GetServerSideProps = async (context) => {    
 
   const id = context.params?.filmId; 
 
@@ -106,7 +106,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
   // Pass data to the page via props
   return { 
     props: { filmData,filmProvider,releaseDate,similarFilms },
-    revalidate: 86400, 
   }
 }
 

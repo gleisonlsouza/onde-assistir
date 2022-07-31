@@ -4,7 +4,7 @@ import { api } from '../../utils/config'
 import { Router, useRouter } from 'next/router'
 import Card from '../../components/Card/Card'
 
-import { GetStaticProps,GetStaticPaths, GetStaticPropsContext, GetStaticPathsContext } from 'next'
+import { GetServerSideProps } from 'next'
 
 
 type serieProps = {
@@ -26,7 +26,7 @@ interface SeriesProps{
 }
 
 
-  export const getStaticProps: GetStaticProps = async (context) => { 
+  export const getServerSideProps: GetServerSideProps = async (context) => { 
     const page = 1;
 
     // Fetch data from external API
@@ -45,7 +45,6 @@ interface SeriesProps{
     // Pass data to the page via props
     return { 
       props: { seriesData,pages },
-      revalidate: 86400, 
     }
   }
 

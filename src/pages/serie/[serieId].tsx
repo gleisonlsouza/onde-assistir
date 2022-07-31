@@ -4,7 +4,7 @@ import Image from 'next/future/image'
 
 import styles from './../../styles/Film.module.scss'
 
-import { GetStaticProps,GetStaticPaths, GetStaticPropsContext, GetStaticPathsContext } from 'next'
+import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import { api } from '../../utils/config'
 import { useRouter } from 'next/router'
@@ -49,7 +49,7 @@ interface iSerieProps{
   similarSeries: SerieProps[],
 }
 
-export const getStaticPaths:GetStaticPaths = async(context) => {
+/* export const getStaticPaths:GetStaticPaths = async(context) => {
   // Fetch data from external API
   const resSeries = await  api.get("/tv/popular");
   
@@ -67,10 +67,10 @@ export const getStaticPaths:GetStaticPaths = async(context) => {
       fallback: true,
   }
   
-}
+} */
 
 
-export const getStaticProps: GetStaticProps = async (context) => {    
+export const getServerSideProps: GetServerSideProps = async (context) => {    
 
   const id = context.params?.serieId; 
 
@@ -94,7 +94,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
   // Pass data to the page via props
   return { 
     props: { serieData,serieProvider,rating,similarSeries },
-    revalidate: 86400, 
   }
 }
 

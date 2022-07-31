@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import WatchProvider from '../../components/WatchProvider/WatchProvider'
 import Card from '../../components/Card/Card'
 
-import { GetStaticProps,GetStaticPaths, GetStaticPropsContext, GetStaticPathsContext } from 'next'
+import { GetServerSideProps } from 'next'
 
 
 type serieProps = {
@@ -27,7 +27,7 @@ interface SeriesProps{
 }
 
 
-  export const getStaticPaths:GetStaticPaths = async(context) => {
+  /* export const getStaticPaths:GetStaticPaths = async(context) => {
     // Fetch data from external API
     const resSeries = await  api.get("/tv/popular");
     
@@ -43,9 +43,9 @@ interface SeriesProps{
         fallback: true,
     }
     
-  }
+  } */
 
-  export const getStaticProps: GetStaticProps = async (context) => { 
+  export const getServerSideProps: GetServerSideProps = async (context) => { 
     
     const page = context.params?.pageId; 
 
@@ -65,7 +65,6 @@ interface SeriesProps{
     // Pass data to the page via props
     return { 
       props: { seriesData,pages },
-      revalidate: 86400, 
     }
   }
 

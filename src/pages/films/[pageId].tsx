@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import WatchProvider from '../../components/WatchProvider/WatchProvider'
 import Card from '../../components/Card/Card'
 
-import { GetStaticProps,GetStaticPaths, GetStaticPropsContext, GetStaticPathsContext } from 'next'
+import { GetServerSideProps } from 'next'
 
 
 type FilmProps = {
@@ -28,7 +28,7 @@ interface FilmsProps{
 }
 
 
-  export const getStaticPaths:GetStaticPaths = async(context) => {
+  /* export const getStaticPaths:GetStaticPaths = async(context) => {
     // Fetch data from external API
     const resFilms = await  api.get("/movie/now_playing");
     
@@ -44,9 +44,9 @@ interface FilmsProps{
         fallback: true,
     }
     
-  }
+  } */
 
-  export const getStaticProps: GetStaticProps = async (context) => { 
+  export const getServerSideProps: GetServerSideProps = async (context) => { 
     
     const page = context.params?.pageId; 
 
@@ -66,7 +66,6 @@ interface FilmsProps{
     // Pass data to the page via props
     return { 
       props: { filmsData,pages },
-      revalidate: 86400, 
     }
   }
 

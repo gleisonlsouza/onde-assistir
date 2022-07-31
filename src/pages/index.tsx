@@ -4,7 +4,7 @@ import watchImage from './../../public/assets/images/wherewatch.jpg'
 
 
 
-import { GetStaticProps } from 'next'
+import { GetServerSideProps } from 'next'
 
 
 // Components
@@ -16,7 +16,7 @@ import Card from '../components/Card/Card'
 import {api} from './../utils/config'
 
  
-  export const getStaticProps: GetStaticProps = async (context) => {    
+  export const getServerSideProps: GetServerSideProps = async (context) => {    
 
     // Fetch data from external API
     const resFilms = await  api.get("/movie/now_playing", {
@@ -37,7 +37,6 @@ import {api} from './../utils/config'
     // Pass data to the page via props
     return { 
       props: { filmsData,seriesData },
-      revalidate: 86400, 
     }
   }
 
